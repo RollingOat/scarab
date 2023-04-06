@@ -1,0 +1,48 @@
+<launch>
+  <!-- Always set GUI to false for AWS RoboMaker Simulation
+       Use gui:=true on roslaunch command-line to run with a gui.
+  -->
+  <arg name="gui" default="true"/>
+  <arg name="num_objects" value="6"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find dynamic_logistics_warehouse)/worlds/warehouse_noactor.world"/>
+    <arg name="paused" default="false"/>
+    <arg name="use_sim_time" default="true"/>
+    <arg name="gui" default="$(arg gui)"/>
+    <arg name="headless" default="false"/>
+    <arg name="debug" default="false"/>
+    <arg name="verbose" default="true"/>
+  </include>
+
+  <node name="spawn_object1" pkg="gazebo_ros" type="spawn_model" output="screen"
+          args="-urdf -file $(find dynamic_logistics_warehouse)/models/moving_object1/model.urdf -model moving_cube1 -x 7 -y -1 -z 0 -Y 0"/>
+  
+
+  
+    <node name="spawn_object2" pkg="gazebo_ros" type="spawn_model" output="screen"
+          args="-urdf -file $(find dynamic_logistics_warehouse)/models/moving_object2/model.urdf -model moving_cube2 -x 7 -y -4 -z 0 -Y 0"/>
+  
+
+  
+    <node name="spawn_object3" pkg="gazebo_ros" type="spawn_model" output="screen"
+          args="-urdf -file $(find dynamic_logistics_warehouse)/models/moving_object3/model.urdf -model moving_cube3 -x 7 -y -7 -z 0 -Y 0"/>
+  
+
+  
+    <node name="spawn_object4" pkg="gazebo_ros" type="spawn_model" output="screen"
+          args="-urdf -file $(find dynamic_logistics_warehouse)/models/moving_object4/model.urdf -model moving_cube4 -x 11 -y 0 -z 0 -Y 0"/>
+ 
+
+  
+    <node name="spawn_object5" pkg="gazebo_ros" type="spawn_model" output="screen"
+          args="-urdf -file $(find dynamic_logistics_warehouse)/models/moving_object5/model.urdf -model moving_cube5 -x 18 -y 14 -z 0 -Y 0"/>
+  
+
+  
+  <node name="spawn_object6" pkg="gazebo_ros" type="spawn_model" output="screen"
+      args="-urdf -file $(find dynamic_logistics_warehouse)/models/moving_object6/model.urdf -model moving_cube6 -x 21 -y 10 -z 0 -Y 0"/>
+  
+
+  <node name="moving_object_node" pkg="dynamic_logistics_warehouse" type="moving_object"/>
+</launch>

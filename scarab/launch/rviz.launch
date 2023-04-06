@@ -1,0 +1,5 @@
+<launch>
+  <arg name="agent" default="scarab45" />
+
+  <node name="rviz_$(arg agent)" pkg="rviz" type="rviz" args="-d $(find scarab)/rviz/$(arg agent).rviz" />
+</launch>

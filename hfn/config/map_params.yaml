@@ -1,0 +1,3 @@
+mapmin: [2, -1.5]
+mapmax: [7, 1.5]
+goal_timeout: 10.0

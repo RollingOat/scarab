@@ -1,0 +1,25 @@
+broadcast_tf:                     false
+axle_width:                       0.255
+wheel_diam:                       0.10
+quad_pulse_per_motor_rev:         2000.0
+motor_to_wheel_ratio:             38.35
+max_wheel_vel:                    0.8
+min_wheel_vel:                    0.00
+accel_max:                        0.05              # m/s^2
+pid_p:                            0.04
+pid_i:                            0.3
+pid_d:                            10.0
+pid_iclamp:                       9000.0
+pid_error_reset_v_step_threshold: 0.1
+pid_error_reset_w_step_threshold: 0.3
+pid_error_reset_min_v:            0.01
+pid_error_reset_min_w:            0.01
+qpps:                             215000
+ff_lin_m:                         28454
+ff_lin_int:                       1840
+ff_ang_m:                         3480
+ff_ang_int:                       3600
+left_sign:                        -1                # corrects "forward" motor direction
+right_sign:                       1                 # corrects "forward" motor direction
+portname:                         "/dev/roboclaw"
+address:                          0x80

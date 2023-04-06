@@ -1,0 +1,13 @@
+#!/bin/bash
+trap exit INT TERM EXIT
+set -o nounset
+set -o errexit
+
+DESTS=$(cat ~/.scarabrc)
+
+# All files in SCFILES variable should have absolute paths
+for DEST in $DESTS; do
+    echo Deleting $SCFILES from $DEST
+    ssh $USER@$DEST "rm -rf $SCFILES"
+    echo "done!"
+done

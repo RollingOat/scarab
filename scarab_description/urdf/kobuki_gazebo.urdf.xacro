@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+
+<robot name="kobuki_sim" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="kobuki_sim">
+    <gazebo reference="wheel_left_link">
+      <mu1>1.0</mu1>
+      <mu2>1.0</mu2>
+      <kp>100000000.0</kp>
+      <kd>10000.0</kd>
+    </gazebo>
+
+    <gazebo reference="wheel_right_link">
+      <mu1>1.0</mu1>
+      <mu2>1.0</mu2>
+      <kp>100000000.0</kp>
+      <kd>10000.0</kd>
+    </gazebo>
+
+    <gazebo reference="caster_front_link">
+      <mu1>0.0</mu1>
+      <mu2>0.0</mu2>
+      <kp>100000000.0</kp>
+      <kd>10000.0</kd>
+    </gazebo>
+
+    <gazebo reference="caster_back_link">
+      <mu1>0.0</mu1>
+      <mu2>0.0</mu2>
+      <kp>100000000.0</kp>
+      <kd>10000.0</kd>
+    </gazebo>
+
+    <gazebo reference="base_link">
+      <sensor type="contact" name="bumpers">
+	      <always_on>1</always_on>
+	      <update_rate>50.0</update_rate>
+	      <visualize>true</visualize>
+	      <contact>
+	        <collision>base_footprint_collision_base_link</collision>
+	      </contact>
+      </sensor>
+    </gazebo>
+
+    <gazebo>
+      <plugin name="differential_drive_controller"
+              filename="libgazebo_ros_diff_drive.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>10</updateRate>
+        <!-- BWC: This is intentionally flipped; not sure why necessary -->
+        <leftJoint>wheel_left_joint</leftJoint>
+        <rightJoint>wheel_right_joint</rightJoint>
+        <wheelSeparation>0.230</wheelSeparation>
+        <wheelDiameter>0.070</wheelDiameter>
+        <torque>1.0</torque>
+        <commandTopic>cmd_vel</commandTopic>
+        <odometryTopic>ground_truth/odom</odometryTopic>
+        <odometryFrame>ground_truth/odom</odometryFrame>
+        <robotBaseFrame>ground_truth/base_link</robotBaseFrame>
+
+        <publishWheelJointState>false</publishWheelJointState>
+        <wheelAcceleration>0</wheelAcceleration>
+        <wheelTorque>5</wheelTorque>
+        <odometrySource>world</odometrySource>
+        <publishTf>1</publishTf>
+        <publishWheelTF>false</publishWheelTF>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+</robot>

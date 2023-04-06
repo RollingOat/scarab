@@ -1,0 +1,15 @@
+<launch>
+
+  <arg name="agent" default="$(env AGENT)" />
+
+  <group ns="$(arg agent)">
+    <node name="joy" pkg="joy" type="joy_node" />
+    <node name="joy_to_twist" pkg="scarab_twist" type="joy_to_twist"
+          output="screen" >
+      <param name="vmax" value="1.0" />
+      <param name="wmax" value="1.5" />
+      <remap from="~/twist" to="cmd_vel" />
+      <remap from="~/joy" to="joy" />
+    </node>
+  </group>
+</launch>

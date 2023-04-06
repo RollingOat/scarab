@@ -1,0 +1,34 @@
+# HumanFriendlyNav
+axle_width:          0.255
+robot_radius:        0.23
+safety_margin:       0.1
+social_margin:       0.2
+waypoint_thresh:     0.2
+alpha_thresh:        2.094
+tau_1:               1.0   # stopping time for max velocity
+tau_2:               0.2   # time constant for linear velocity update
+tau_r:               1.0
+w_max:               0.6   # maximum angular velocity
+v_opt:               2.0   # nominal linear velocity
+
+# HFNWrapper
+cost_occ_prob:       0.01  # factor to convert occupancy prob to cost
+cost_occ_dist:       0.15  # factor to convert occ_dist to cost
+max_occ_dist:        0.5   # maximum margin for distance transform
+lethal_occ_dist:     0.35  # distance at which robot is in collision
+goal_tolerance_ang:  3.15  # max angle difference for goal to be reached
+min_map_update:      2.0   # wait at least this time before updating map
+stop_on_preempt:     true  # stop the robot when a preempt command is received
+goal_tolerance:      0.2   # distance when goal is considered reached
+path_margin:         0.5   # max margin for path planning
+waypoint_spacing:    0.05  # max distance between waypoints
+los_margin:          0.2   # margin for line of sight checks
+timeout:             500.0 # time at which an action is aborted
+stuck_distance:      0.05  # radius of neighborhood for when a robot is stuck
+stuck_angle:         0.05  # Not stuck if moved angle is larger than this
+stuck_timeout:       5.0   # time over which a robot must remain in radius
+stuck_start:         3.0   # seconds to before we start checking if we're stuck
+free_threshold:      0     # max occupancy grid value for free space
+occupied_threshold:  100   # min occupancy grid value for occupied space
+allow_unknown_path:  true  # allow paths through unknown space
+allow_unknown_los:   false # allow line of sight through unknown space

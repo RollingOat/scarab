@@ -1,0 +1,79 @@
+pub_rate: 1.0
+analyzers:
+  Scarab40:
+    type: AnalyzerGroup
+    path: Scarab40
+    analyzers:
+      laser:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: Laser
+        regex: 'scarab40.*laser.*'
+      batteries:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: Batteries
+        regex: 'scarab40.*Battery.*'
+
+  Scarab41:
+    type: AnalyzerGroup
+    path: Scarab41
+    analyzers:
+      laser:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: Laser
+        regex: 'scarab41.*laser.*'
+      batteries:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: Batteries
+        regex: 'scarab41.*Battery.*'
+
+  Scarab42:
+    type: AnalyzerGroup
+    path: Scarab42
+    analyzers:
+      laser:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: Laser
+        regex: 'scarab42.*laser.*'
+      batteries:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: Batteries
+        regex: 'scarab42.*Battery.*'
+
+  Scarab43:
+    type: AnalyzerGroup
+    path: Scarab43
+    analyzers:
+      laser:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: Laser
+        regex: 'scarab43.*laser.*'
+      batteries:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: Batteries
+        regex: 'scarab43.*Battery.*'
+
+  Scarab44:
+    type: AnalyzerGroup
+    path: Scarab44
+    analyzers:
+      laser:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: Laser
+        regex: 'scarab44.*laser.*'
+      batteries:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: Batteries
+        regex: 'scarab44.*Battery.*'
+
+  Scarab45:
+    type: AnalyzerGroup
+    path: Scarab45
+    analyzers:
+      laser:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: Laser
+        regex: 'scarab45.*laser.*'
+      batteries:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: Batteries
+        regex: 'scarab45.*Battery.*'

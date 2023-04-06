@@ -1,0 +1,66 @@
+<launch>
+
+  <arg name="agent"            default="$(env AGENT)" />
+  <arg name="init"             default="false" /> <!-- initial pose, cov est. for amcl -->
+  <arg name="map_file"         default="$(find scarab)/maps/perch.yaml" />
+  <arg name="map_server"       default="false" /> <!-- start map server? -->
+  <arg name="camera"           default="false" /> <!-- don't need the asus for amcl -->
+  <arg name="map_service"      default="static_map" />
+  <arg name="map_frame"        default="$(arg agent)/map" />
+  <arg name="use_map_topic"    default="true"/>
+  <arg name="map_topic"        default="map"/>
+
+  <arg name="initial_pose_x"   default="0.0" />
+  <arg name="initial_pose_y"   default="0.0" />
+  <arg name="initial_pose_a"   default="0.0" />
+  <arg name="initial_cov_xx"   default="0.3" />
+  <arg name="initial_cov_yy"   default="0.3" />
+  <arg name="initial_cov_aa"   default="0.25" />
+
+  <!-- static map if needed -->
+  <node if="$(arg map_server)"
+        pkg="map_server"
+        type="map_server"
+        name="map_server"
+        output="screen"
+        ns="$(arg agent)"
+        args="$(arg map_file)">
+    <param name="frame_id" value="$(arg map_frame)" />
+  </node>
+
+  <!-- amcl -->
+  <include file="$(find scarab)/launch/amcl.launch">
+    <arg name="agent"            value="$(arg agent)" />
+    <arg name="init"             value="$(arg init)" />
+    <arg name="map_service"      value="$(arg map_service)" />
+    <arg name="map_frame"        value="$(arg map_frame)" />
+    <arg name="use_map_topic"    value="$(arg use_map_topic)"/>
+    <arg name="map_topic"        value="$(arg map_topic)"/>
+    <arg name="initial_pose_x"   value="$(arg initial_pose_x)" />
+    <arg name="initial_pose_y"   value="$(arg initial_pose_y)" />
+    <arg name="initial_pose_a"   value="$(arg initial_pose_a)" />
+    <arg name="initial_cov_xx"   value="$(arg initial_cov_xx)" />
+    <arg name="initial_cov_yy"   value="$(arg initial_cov_yy)" />
+    <arg name="initial_cov_aa"   value="$(arg initial_cov_aa)" />
+  </include>
+
+  <!-- scarab components -->
+  <include file="$(find scarab)/launch/scarab.launch">
+    <arg name="agent"      value="$(arg agent)" />
+    <arg name="camera"     value="$(arg camera)" />
+    <arg name="hokuyo"     value="true" />
+    <arg name="laser_odom" value="true" />
+  </include>
+
+  <!-- publish robot pose from tf tree
+  <node name="pose_pub"
+        pkg="hfn"
+        type="tf_posestamped_node.py"
+        output="screen"
+        ns="$(arg agent)">
+    <param name="base_frame_id" value="$(arg agent)/base_link"/>
+    <param name="map_frame_id" value="$(arg map_frame)"/>
+    <remap from="pose" to="pose" />
+  </node>
+ -->
+</launch>

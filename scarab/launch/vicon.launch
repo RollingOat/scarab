@@ -1,0 +1,20 @@
+<launch>
+  <node pkg="mocap_vicon"
+    type="mocap_vicon_node"
+    name="vicon"
+    output="screen">
+    <param name="server_address" value="mocap"/>
+    <param name="frame_rate" value="100"/>
+    <param name="max_accel" value="10.0"/>
+    <param name="publish_tf" value="false"/>
+    <param name="fixed_frame_id" value="mocap"/>
+    <rosparam param="model_list">['scarab40','scarab41','scarab42','scarab43','scarab44','scarab45','scarab46']</rosparam>
+    <remap from="vicon/scarab40/odom" to="/scarab40/odom_vicon"/>
+    <remap from="vicon/scarab41/odom" to="/scarab41/odom_vicon"/>
+    <remap from="vicon/scarab42/odom" to="/scarab42/odom_vicon"/>
+    <remap from="vicon/scarab43/odom" to="/scarab43/odom_vicon"/>
+    <remap from="vicon/scarab44/odom" to="/scarab44/odom_vicon"/>
+    <remap from="vicon/scarab45/odom" to="/scarab45/odom_vicon"/>
+    <remap from="vicon/scarab46/odom" to="/scarab46/odom_vicon"/>
+  </node>
+</launch>

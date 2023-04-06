@@ -1,0 +1,42 @@
+<robot name="moving_cube">
+  <!-- root link, on the ground just below the model origin -->
+  <link name="obj_base_footprint">
+  </link>
+
+  <joint name="base_link_joint" type="fixed">
+    <origin xyz="0 0 0.25" rpy="0 0 0" />
+    <parent link="obj_base_footprint"/>
+    <child link="obj_base_link" />
+  </joint>
+
+  <!-- the model -->
+  <link name="obj_base_link">
+    <inertial>
+      <mass value="50" />
+      <inertia ixx="50.0" ixy="0.0" ixz="0.0"
+        iyy="50.0" iyz="0.0"
+        izz="50.0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <box size="0.5 0.5 0.5" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.5 0.5 0.5" />
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo>
+    <plugin name="object_controller" filename="libgazebo_ros_planar_move.so">
+      <commandTopic>obj3_cmd_vel</commandTopic>
+      <odometryTopic>obj3_odom</odometryTopic>
+      <odometryFrame>obj3_odom</odometryFrame>
+      <odometryRate>20.0</odometryRate>
+      <robotBaseFrame>obj3_base_footprint</robotBaseFrame>
+    </plugin>
+  </gazebo>
+
+</robot>

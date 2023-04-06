@@ -1,0 +1,95 @@
+<launch>
+
+  <!-- sensors -->
+  <arg name="agent"       default="$(env AGENT)" />
+  <arg name="laser_odom"  default="false" />
+  <arg name="camera"      default="true" />
+  <arg name="hokuyo"      default="true" />
+
+  <!-- frames -->
+  <arg name="base_frame"  default="$(arg agent)/base_link" />
+  <arg name="odom_frame"  default="$(arg agent)/odom"/>
+
+  <arg name="roboclaw_config_file" default="$(find roboclaw)/cfg/roboclaw.yaml" />
+
+  <group ns="$(arg agent)">
+
+    <!-- motor controller -->
+    <node pkg="roboclaw" type="roboclaw_node" name="motor" output="screen">
+      <param name="odom_frame" value="$(arg agent)/odom_motor" /> <!-- the odom_frame arg is used exclusively for remapping laser odom frames and is not used here -->
+      <param name="base_frame" value="$(arg base_frame)" />
+      <rosparam command="load" file="$(arg roboclaw_config_file)" />
+    </node>
+
+    <!-- camera components -->
+    <group if="$(arg camera)">
+
+      <!-- xtion tilt servo -->
+      <include file="$(find scarab)/launch/servo.launch"/>
+
+      <!-- camera node -->
+      <include file="$(find scarab)/launch/openni2_tf_prefix.launch">
+        <arg name="tf_prefix" value="$(arg agent)"/>
+	      <arg name="id_manufacturer" value="1d27" />
+      </include>
+
+      <!-- static transform for xtion: base_link -> camera_link -->
+      <node name="camera_tf_broadcaster" pkg="scarab"
+            type="camera_tf_broadcaster.py" respawn="false" output="screen">
+        <param name="agent" value="$(arg agent)" />
+      </node>
+
+    </group>
+
+    <!-- hokuyo laser components -->
+    <group if="$(arg hokuyo)">
+
+      <!-- static transform for hokuyo: base_link -> laser -->
+      <node pkg="tf" type="static_transform_publisher" name="transformer"
+            args="0.0 0.0 0.0 0.0 0.0 0.0 $(arg base_frame) $(arg agent)/laser 100" />
+
+      <!-- hokuyo node -->
+      <node name="laser" pkg="urg_node" type="urg_node" output="screen">
+        <param name="ip_address"          value=""/>
+        <param name="serial_port"         value="/dev/hokuyo"/>
+        <param name="serial_baud"         value="115200"/>
+        <param name="frame_id"            value="$(arg agent)/laser"/>
+        <param name="calibrate_time"      value="true"/>
+        <param name="publish_intensity"   value="false"/>
+        <param name="publish_multiecho"   value="false"/>
+        <param name="angle_min"           value="-2.1"/>
+        <param name="angle_max"           value="2.1"/>
+        <param name="cluster"             value="1" />
+        <param name="skip"                value="1" />
+        <param name="intensity"           value="false" />
+        <remap from="/diagnostics"        to="laser_diagnostics" />
+      </node>
+
+      <node name="laser_throttle" pkg="topic_tools" type="throttle"
+            args="messages scan 5.0" />
+
+    </group>
+
+
+    <!-- laser odometry -->
+    <node name="laser_odom" pkg="laser_odom" type="laser_odom"
+          output="screen" if="$(arg laser_odom)">
+      <param name="debug" value="false" />
+      <param name="base_frame" value="$(arg base_frame)" />
+      <param name="odom_frame" value="$(arg odom_frame)" />
+      <rosparam>
+        grid_resolution: 0.05
+        sensor_sd: 0.02
+        subsample: 1
+        travel_distance: 0.2
+        travel_angle: 0.034
+        decay_duration: 200
+        decay_step: 40
+        range_x: 0.2
+        range_y: 0.2
+      </rosparam>
+    </node>
+
+  </group>
+
+</launch>

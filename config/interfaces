@@ -1,0 +1,52 @@
+auto lo wlp2s0
+
+iface lo inet loopback
+
+iface enp0s31f6 inet static
+address 192.168.131.143
+gateway 192.168.131.1
+netmask 255.255.255.0
+post-up ip route del default dev enp0s31f6
+post-up ip route add default via 192.168.131.1 dev enp0s31f6 metric 200
+post-up ip route del 192.168.131.0/24 dev enp0s31f6
+post-up ip route add 192.168.131.0/24 src 192.168.131.143 dev enp0s31f6 proto kernel scope link metric 200
+dns-nameservers 192.168.129.1
+
+iface wlp2s0 inet static
+address 192.168.131.43
+netmask 255.255.255.0
+wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+post-up ip route add default via 192.168.131.1 dev wlp2s0 metric 300
+post-up ip route del 192.168.131.0/24 dev wlp2s0
+post-up ip route add 192.168.131.0/24 src 192.168.131.43 dev wlp2s0 proto kernel scope link metric 300
+dns-nameservers 192.168.129.1
+
+#iface olsr inet static
+#address 192.168.130.43
+#netmask 255.255.255.0
+#pre-up iw phy phy0 interface add olsr type ibss 
+#post-up iw dev olsr ibss join scarab_mesh 5180 HT40+
+#post-up olsrd
+#post-down killall -q olsrd
+#post-down iw dev olsr del
+
+# iface mesh inet static
+# address 192.168.132.43
+# netmask 255.255.255.0
+# gateway 192.168.132.1
+# pre-up iw dev wlp2s0 interface add mesh type mp mesh_id scarab_mesh
+# pre-up iw dev mesh set channel 40
+# # post-up iw dev mesh set mesh_param mesh_path_refresh_time 250
+# # post-up iw dev mesh set mesh_param mesh_hwmp_active_path_timeout 500
+# post-up iw dev mesh scan trigger
+# post-down iw dev mesh del
+
+# iface bat0 inet static
+# address 192.168.130.43
+# netmask 255.255.255.0
+# pre-up iw dev wlp2s0 set type ibss
+# pre-up ifconfig wlp2s0 up
+# pre-up iw dev wlp2s0 ibss join scarab_mesh 5180 HT40+
+# pre-up batctl if add wlp2s0
+# post-up ip route add default via 192.168.130.4 dev bat0
+# post-down ifconfig wlp2s0 down

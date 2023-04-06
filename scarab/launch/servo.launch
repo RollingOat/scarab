@@ -1,0 +1,26 @@
+<launch>
+
+  <rosparam file="$(find scarab)/config/servo_tilt.yaml" command="load"/>
+
+  <node name="dynamixel_manager" pkg="dynamixel_controllers" type="controller_manager.py"
+        required="true" output="screen">
+    <rosparam>
+      namespace: dxl_manager
+      serial_ports:
+        pan_tilt_port:
+          port_name: "/dev/servo"
+          baud_rate: 1000000
+          min_motor_id: 1
+          max_motor_id: 25
+          update_rate: 20
+    </rosparam>
+  </node>
+
+  <node name="controller_spawner" pkg="dynamixel_controllers" type="controller_spawner.py"
+        args="--manager=dxl_manager --port=pan_tilt_port servo_tilt_controller"
+        output="screen"/>
+
+  <node pkg="rostopic" type="rostopic" name="servo_pos_init" output="screen"
+        args="pub -1 /$(env AGENT)/servo_tilt_controller/command std_msgs/Float64 -- 0.0"/>
+
+</launch>

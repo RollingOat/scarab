@@ -1,0 +1,30 @@
+<launch>
+  <arg name="agent" default="scarab40" />
+  <arg name="voxel_size" default="0.20" />
+  <arg name="voxels_per_side" default="16" />
+  <arg name="world_frame" default="world" />
+  <group ns="$(arg agent)">
+
+    <node name="voxblox_node" pkg="voxblox_ros" type="tsdf_server" output="screen" args="-alsologtostderr" clear_params="true">
+      <remap from="pointcloud" to="camera/depth/points"/>
+      <!-- <remap from="voxblox_node/esdf_map_out" to="esdf_map" /> -->
+      <param name="truncation_distance" value="0.5" />
+      <param name="tsdf_voxel_size" value="$(arg voxel_size)" />
+      <param name="tsdf_voxels_per_side" value="$(arg voxels_per_side)" />
+      <param name="publish_esdf_map" value="false" />
+      <param name="publish_pointclouds" value="true" />
+      <param name="use_tf_transforms" value="true" />
+      <param name="update_mesh_every_n_sec" value="1" />
+      <param name="clear_sphere_for_planning" value="true" />
+      <param name="world_frame" value="$(arg world_frame)" />
+
+      <!-- Publish tsdf slice param -->
+      <!-- <param name="slice_level" value="1.2" /> -->
+      <!-- <param name="publish_slices" value="true" /> -->
+      <!-- <param name="voxel_carving_enabled" value="true" /> -->
+      <param name="color_mode" value="color" />
+      <param name="max_ray_length_m" value="6.0" />
+    </node>
+
+  </group>
+</launch>

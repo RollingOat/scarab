@@ -1,0 +1,41 @@
+# Sensor Parameters
+# set maxUrange < max range of real sensor <= maxRange
+maxUrange:                16.0   # (80)   Max useable range for laser
+maxRange:                 30.0   #        Max range for laser
+
+# Algorithm Parameters
+sigma:                    0.05   # (0.05) sigma used by greedy endpoint matching
+kernelSize:               1      # (1)    Kernal in which to look for coorespondance
+lstep:                    0.05   # (0.05) Optimization step in translation
+astep:                    0.05   # (0.05) Optimization step in rotation
+iterations:               5      # (5)    Number of iterations by scanmatcher
+lsigma:                   0.075  # (0.075)sigma of a beam used for likelihood computation
+ogain:                    3.0    # (3) Liklihood gain for smoothing resampling
+minimumScore:             2000   # (0.0) Minimum score to consider scanmatching good
+srr:                      0.01   # (0.1) Odom error in translation as a function of translation
+srt:                      0.02   # (0.2) Odom error in translation as a function or rotation
+str:                      0.01   # (0.1) Odom error in rotation as a fcuntion of translation
+stt:                      0.02   # (0.2) Odom error in rotation as a function of rotation
+resampleThreshold:        0.5    # (0.5) Neff based resampling period
+llsamplerange:            0.01   # (0.01) Translational sampling range for likelihood
+llsamplestep:             0.01   # (0.01) Translational sampling step for likelihood
+lasamplerange:            0.005  # (0.005) Angular sampling range for likelihood
+lasamplestep:             0.005  # (0.005) Angular sampling step for likelihood
+lskip:                    0      # (0) Number of beams to skip each scan
+particles:                80     # (30) Number of particles in the filter
+occ_thresh:               0.25   # (0.25) Cells with greater chance of occupamncy considered occupied
+
+# Map Paramters
+xmin:                     -30.0  # (-100) Initial map, meters
+ymin:                     -30.0  # (-100)
+xmax:                     30.0   # (100)
+ymax:                     30.0   # (100)
+delta:                    0.025  # (0.05) Map resolution, meters/occ grid
+
+# Publisher/Update Parameters
+transform_publish_period: 0.02   # (0.05) How long (sec) between transform publications
+map_update_interval:      1      # (5) How long (sec) between map updates
+linearUpdate:             0.25   # (1) Process scan each time robot translates this far
+angularUpdate:            0.2618 # (0.5) Process scan each time robot rotates this far
+temporalUpdate:           -1.0   # (-1) Process scan if last scan processed is older than these seconds. Negative is off.
+

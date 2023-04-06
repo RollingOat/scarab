@@ -1,0 +1,15 @@
+<launch>
+  <!-- Use in conjunction with scarab_gazebo/scarab_world.launch -->
+  <node pkg="kinematic_sim" type="kinematic_sim" name="KinematicSim"
+        respawn="false">
+      <param name="publish_freq" value="20"/>
+      <param name="num_agents" value="1"/>
+
+      <param name="agent_prefix" value="scarab"/>
+      <param name="gt_pose_topic" value="pose_stamped" />
+
+      <param name="pub_global_frame" value="true" />
+
+      <param name="initial0" value=" 0.0 0.0 0.0"/>
+  </node>
+</launch>

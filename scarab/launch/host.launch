@@ -1,0 +1,16 @@
+<!-- launches rviz (and vicon if required) configured for the single agent
+     specified through the required 'agent' arg -->
+<launch>
+
+  <arg name="agent"/>
+  <arg name="use_vicon" default="false"/>
+
+  <node name="rviz"
+        pkg="rviz"
+        type="rviz"
+        args="-d $(find scarab)/rviz/$(arg agent).rviz"/>
+
+  <include if="$(arg use_vicon)"
+           file="$(find scarab)/launch/vicon.launch"/>
+
+</launch>

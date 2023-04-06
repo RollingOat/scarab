@@ -1,0 +1,10 @@
+<launch>
+  <arg name="agent" default="$(env AGENT)" />
+
+  <group ns="$(arg agent)">
+    <node name="scarab_wp_node" pkg="hfn" type="scarab_wp_node" output="screen">
+      <rosparam command="load" file="$(find hfn)/config/map_params.yaml" />
+    </node>
+  </group>
+
+</launch>
