@@ -6,7 +6,7 @@
   <arg name="ground_truth" default="true"/> <!-- publish ground truth tf tree -->
 
   <!-- gazebo args -->
-  <arg name="world_name"  default="$(find scarab_gazebo)/worlds/levine.world"/>
+  <arg name="world_name"  default="$(find dynamic_logistics_warehouse)/worlds/better_warehouse.world"/>
   <arg name="verbose"     default="false"/>
   <arg name="debug"       default="false"/>
   <arg name="gazebo_gui"  default="true"/>
@@ -39,23 +39,19 @@
         args="0 0 0 0 0 0 $(arg world_frame) $(arg map_frame)"
         if="$(arg publish_world)"/>
 
-  <!-- publish static transform between world_frame and map_frame -->
+  <!-- publish static transform between odom frame and ground_truth_odom -->
   <node pkg="tf2_ros"
         type="static_transform_publisher"
         name="odom_static_tf_broadcaster"
         args="0 0 0 0 0 0 $(arg odom_frame) ground_truth/odom"
         if="$(arg ground_truth)"/>
 
-  <!-- publish static transform between world_frame and map_frame -->
+  <!-- publish static transform between ground_truth/base_link and baselink -->
   <node pkg="tf2_ros"
         type="static_transform_publisher"
         name="base_static_tf_broadcaster"
         args="0 0 0 0 0 0 ground_truth/base_link $(arg base_frame)"
         if="$(arg ground_truth)"/>
-
-  <!-- load levine world -->
-  <node name="levine_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
-        args="-sdf -model levine -file $(find scarab_gazebo)/models/levine/model.sdf"/>
 
   <group ns="$(arg agent)">
 
@@ -65,7 +61,7 @@
 
     <!-- spawn robot in gazebo -->
     <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" output="screen"
-          args="-urdf -model $(arg agent) -param /$(arg agent)/robot_description -x 0 -y 0 -z 2"/>
+          args="-urdf -model $(arg agent) -param /$(arg agent)/robot_description -x 0 -y -3 -z 0"/>
 
     <!-- hack to get laser frame correct -->
     <node pkg="tf2_ros"
@@ -107,6 +103,7 @@
       <param name="social_margin"      value="0.2" />
       <param name="goal_tolerance_ang" value=".05"/> <!--default 2pi-->
       <param name="goal_tolerance"     value=".05"/>     <!--default .2m-->
+      <param name="v_opt"              value="1.0"/>
     </node>
 
     <!-- slam for localization -->

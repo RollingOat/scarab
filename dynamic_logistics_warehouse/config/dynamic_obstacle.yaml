@@ -1,0 +1,25 @@
+number_of_obstacles: 4
+
+obs1:
+  name: moving_PalletJack1
+  start points: [16.0, -7.0]
+  end points: [16.0, -2.0] 
+  speed: 1.0
+
+obs2:
+  name: moving_PalletJack2
+  start points: [14, 0]
+  end points: [23, 0]
+  speed: 1.0
+
+obs3:
+  name: moving_clutter1
+  start points: [23, 3]
+  end points: [28, 3]
+  speed: 1.0
+
+obs4:
+  name: moving_clutter2
+  start points: [23, 7]
+  end points: [28, 7]
+  speed: 1.0

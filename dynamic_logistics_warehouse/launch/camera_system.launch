@@ -1,0 +1,33 @@
+<launch>
+    <node name="stereo_proc_1" pkg="stereo_image_proc" type="stereo_image_proc" output="screen" ns="stereo_proc_1">
+        <remap from="left/image_raw" to="/stereo_camera_1/left/image_raw"/>
+        <remap from="left/camera_info" to="/stereo_camera_1/left/camera_info"/>
+        <remap from="right/image_raw" to="/stereo_camera_1/right/image_raw"/>
+        <remap from="right/camera_info" to="/stereo_camera_1/right/camera_info"/>
+        <param name="correlation_window_size" value="15"/>
+    </node>
+
+    <node name="stereo_proc_2" pkg="stereo_image_proc" type="stereo_image_proc" output="screen" ns="stereo_proc_2">
+        <remap from="left/image_raw" to="/stereo_camera_2/left/image_raw"/>
+        <remap from="left/camera_info" to="/stereo_camera_2/left/camera_info"/>
+        <remap from="right/image_raw" to="/stereo_camera_2/right/image_raw"/>
+        <remap from="right/camera_info" to="/stereo_camera_2/right/camera_info"/>
+        <param name="correlation_window_size" value="20"/>
+    </node>
+
+    <node name="stereo_proc_3" pkg="stereo_image_proc" type="stereo_image_proc" output="screen" ns="stereo_proc_3">
+        <remap from="left/image_raw" to="/stereo_camera_3/left/image_raw"/>
+        <remap from="left/camera_info" to="/stereo_camera_3/left/camera_info"/>
+        <remap from="right/image_raw" to="/stereo_camera_3/right/image_raw"/>
+        <remap from="right/camera_info" to="/stereo_camera_3/right/camera_info"/>
+        <param name="correlation_window_size" value="20"/>
+    </node>
+
+    <node name="stereo_proc_4" pkg="stereo_image_proc" type="stereo_image_proc" output="screen" ns="stereo_proc_4">
+        <remap from="left/image_raw" to="/stereo_camera_4/left/image_raw"/>
+        <remap from="left/camera_info" to="/stereo_camera_4/left/camera_info"/>
+        <remap from="right/image_raw" to="/stereo_camera_4/right/image_raw"/>
+        <remap from="right/camera_info" to="/stereo_camera_4/right/camera_info"/>
+        <param name="correlation_window_size" value="20"/>
+    </node>
+</launch>

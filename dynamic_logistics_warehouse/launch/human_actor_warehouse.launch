@@ -1,0 +1,35 @@
+<launch>
+    <!-- Always set GUI to false for AWS RoboMaker Simulation
+        Use gui:=true on roslaunch command-line to run with a gui.
+    -->
+    <arg name="gui" default="true"/>
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find dynamic_logistics_warehouse)/worlds/better_warehouse.world"/>
+        <arg name="paused" default="false"/>
+        <arg name="use_sim_time" default="true"/>
+        <arg name="gui" default="$(arg gui)"/>
+        <arg name="headless" default="false"/>
+        <arg name="debug" default="false"/>
+        <arg name="verbose" default="true"/>
+    </include>
+
+    <!-- <node name="spawn_camera1" pkg="gazebo_ros" type="spawn_model" output="screen"
+                args="-sdf -file $(find dynamic_logistics_warehouse)/models/overhead_camera/model.sdf -model camera1 -x 30 -y 10 -z 2 -Y -1.5707 -P 0.5 -R 0"/>
+
+    <node name="spawn_depth_camera1" pkg="gazebo_ros" type="spawn_model" output="screen"
+                args="-sdf -file $(find dynamic_logistics_warehouse)/models/overhead_depth_camera/model.sdf -model depth_camera1 -x 28 -y 10 -z 2 -Y -1.5707 -P 0.5 -R 0"/> -->
+
+    <node name="spawn_stereo_camera_1" pkg="gazebo_ros" type="spawn_model" output="screen" 
+            args="-sdf -file $(find dynamic_logistics_warehouse)/models/stereo_camera_1/model.sdf -model stereo_camera_1 -x 29 -y 10 -z 2 -Y -1.5707 -P 0.5 -R 0"/>
+
+    <node name="spawn_stereo_camera_2" pkg="gazebo_ros" type="spawn_model" output="screen"
+            args="-sdf -file $(find dynamic_logistics_warehouse)/models/stereo_camera_2/model.sdf -model stereo_camera_2 -x 9 -y 10 -z 2 -Y -1.5707 -P 0.5 -R 0"/>
+
+    <node name="spawn_stereo_camera_3" pkg="gazebo_ros" type="spawn_model" output="screen" 
+            args="-sdf -file $(find dynamic_logistics_warehouse)/models/stereo_camera_3/model.sdf -model stereo_camera_3 -x 0 -y 10 -z 2 -Y -1.5707 -P 0.5 -R 0"/>
+
+    <node name="spawn_stereo_camera_4" pkg="gazebo_ros" type="spawn_model" output="screen" 
+            args="-sdf -file $(find dynamic_logistics_warehouse)/models/stereo_camera_4/model.sdf -model stereo_camera_4 -x 11 -y 0 -z 2 -Y -0 -P 0.5 -R 0"/>
+
+</launch>

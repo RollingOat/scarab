@@ -1,0 +1,22 @@
+
+<launch>
+  <node pkg="rosbag" type="record" name="camera_recorder" output="screen"
+        args="record    /scarab40/camera/depth/camera_info
+                        /scarab40/camera/depth/image_raw
+                        /scarab40/camera/depth/points
+                        /scarab40/camera/parameter_descriptions
+                        /scarab40/camera/parameter_updates
+                        /scarab40/camera/rgb/camera_info
+                        /scarab40/camera/rgb/image_raw
+                        /scarab40/camera/rgb/image_raw/theora
+                        /scarab40/camera/rgb/image_raw/theora/parameter_descriptions
+                        /scarab40/camera/rgb/image_raw/theora/parameter_updates
+                        /overhead_camera/camera_info
+                        /overhead_camera/image_raw
+                        /overhead_camera/image_raw/theora
+                        /overhead_camera/image_raw/theora/parameter_descriptions
+                        /overhead_camera/image_raw/theora/parameter_updates
+                        /overhead_camera/parameter_descriptions
+                        /overhead_camera/parameter_updates"/>
+</launch>
+
