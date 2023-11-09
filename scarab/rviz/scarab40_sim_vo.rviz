@@ -9,6 +9,8 @@ Panels:
         - /Odometry2
         - /global_path1
         - /local_Path1
+        - /Map2
+        - /Marker1
       Splitter Ratio: 0.5411764979362488
     Tree Height: 367
   - Class: rviz/Selection
@@ -312,7 +314,7 @@ Visualization Manager:
       Frames:
         All Enabled: false
         base_footprint:
-          Value: true
+          Value: false
         base_link:
           Value: false
         camera_depth_frame:
@@ -586,6 +588,14 @@ Visualization Manager:
       Unreliable: false
       Use Timestamp: false
       Value: false
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /scarab40/vo_marker_in_map
+      Name: Marker
+      Namespaces:
+        "": true
+      Queue Size: 100
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -614,7 +624,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rtabmap_ros/OrbitOriented
-      Distance: 16.605558395385742
+      Distance: 24.698488235473633
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -622,9 +632,9 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 1.543058156967163
-        Y: -2.0649259090423584
-        Z: 0.07865890115499496
+        X: 0.5712798237800598
+        Y: 0.48168236017227173
+        Z: -0.2630602717399597
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
