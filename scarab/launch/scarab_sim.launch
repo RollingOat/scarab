@@ -6,7 +6,7 @@
   <arg name="ground_truth" default="true"/> <!-- publish ground truth tf tree -->
 
   <!-- gazebo args -->
-  <arg name="world_name"  default="$(find dynamic_logistics_warehouse)/worlds/better_warehouse.world"/>
+  <arg name="world_name"  default="$(find dynamic_logistics_warehouse)/worlds/empty_wall.world"/>
   <arg name="verbose"     default="false"/>
   <arg name="debug"       default="false"/>
   <arg name="gazebo_gui"  default="true"/>
@@ -61,7 +61,7 @@
 
     <!-- spawn robot in gazebo -->
     <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" output="screen"
-          args="-urdf -model $(arg agent) -param /$(arg agent)/robot_description -x 0 -y -3 -z 0"/>
+          args="-urdf -model $(arg agent) -param /$(arg agent)/robot_description -x -6 -y 0 -z 0"/>
 
     <!-- hack to get laser frame correct -->
     <node pkg="tf2_ros"
